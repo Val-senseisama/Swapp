@@ -29,11 +29,11 @@ const { authMiddleware, isAdmin } = require("../middleware/authMiddleware");
 const router = express.Router();
 
 router.post("/register", createUser);
-router.post("/login", loginUser);
+router.post("/admin-login", loginUser);
 router.post("/forgot-password-token", forgotPasswordToken);
 router.put("/reset-password/:token", resetPassword);
 router.put("/password", authMiddleware, updatePassword);
-router.post("/admin-login", loginAdmin);
+//router.post("/admin-login", loginAdmin);
 router.get("/all-users", getAllUser);
 router.get("/refresh", handleRefreshToken);
 router.get("/logout", logOut);
