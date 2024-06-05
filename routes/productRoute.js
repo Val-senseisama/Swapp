@@ -16,7 +16,7 @@ const {
 } = require("../middleware/uploadImagesMiddleware");
 const router = express.Router();
 
-router.post("/",authMiddleware,createProduct);
+router.post("/",createProduct);
 router.put(
   "/upload/:id",
   uploadPhoto.array("images", 10),
