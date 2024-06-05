@@ -35,7 +35,7 @@ var productSchema = new mongoose.Schema(
     },
     whatsapp:{
       type: Number,
-      required: True
+      required: true
     },
   },
   {
