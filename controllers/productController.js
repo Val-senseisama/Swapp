@@ -34,7 +34,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 });
 
 const updateProductImg = asyncHandler(async (req, res) => {
-  const id = req.params;
+  const {id} = req.params;
   const owner = await Product.findById(id).owner;
   if (id) {
     try {
