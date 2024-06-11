@@ -35,10 +35,11 @@ const updateProduct = asyncHandler(async (req, res) => {
 
 const updateProductImg = asyncHandler(async (req, res) => {
   const {id} = req.params;
-  const owner = await Product.findById(id).owner;
+  const images = req.body;
+  //const owner = await Product.findById(id).owner;
   if (id) {
     try {
-      const updateProductImage = await Product.findOneAndUpdate({ id }, { $set: {images}}, {
+      const updateProductImage = await Product.findOneAndUpdate({ id }, { $set: {images : images}, {
         new: true,
       });
 
