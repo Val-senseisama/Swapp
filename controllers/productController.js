@@ -37,10 +37,17 @@ const updateProductImg = asyncHandler(async (req, res) => {
   const {id} = req.params;
   const images = req.body;
   console.log(images);
+  console.log(req.body)
   //const owner = await Product.findById(id).owner;
-  if (id) {
+  if (!id) {
+    return res.status(400).send("Invalid product ID.");
+  }
+
+  if (!Array.isArray(images) || images.length === 0) {
+    return res.status(400).send("Invalid images array.");
+  }
     try {
-      const updateProductImage = await Product.findOneAndUpdate({ id }, { $set: {images : images} }, {
+      const updateProductImage = await Product.findByIdAndUpdate( id , { $set: {images : images} }, {
         new: true,
       });
 
