@@ -39,7 +39,7 @@ const updateProductImg = asyncHandler(async (req, res) => {
   const images = req.body;
   console.log(id)
   console.log(images);
-  console.log(req)
+  console.log(req.body)
   //const owner = await Product.findById(id).owner;
   if (!id) {
     return res.status(400).send("Invalid product ID.");
