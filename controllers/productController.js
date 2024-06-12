@@ -46,7 +46,7 @@ const updateProductImg = asyncHandler(async (req, res) => {
   if (!Array.isArray(images) || images.length === 0) {
     return res.status(400).send("Invalid images array.");
   }
-  const product = await Product.findOne({_id: id})
+  const product = await Product.findOne({id: id})
   if (product) {
     //     try {
     //   const updateProductImage = await Product.findByIdAndUpdate( id , { $set: {images : images} }, {
