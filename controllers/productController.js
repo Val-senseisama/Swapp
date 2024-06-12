@@ -48,20 +48,23 @@ const updateProductImg = asyncHandler(async (req, res) => {
   }
   const product = await Product.findOne({_id: id})
   if (product) {
-        try {
-      const updateProductImage = await Product.findByIdAndUpdate( id , { $set: {images : images} }, {
-        new: true,
-      });
+    //     try {
+    //   const updateProductImage = await Product.findByIdAndUpdate( id , { $set: {images : images} }, {
+    //     new: true,
+    //   });
       
-    if (!updateProductImage) {
-      return res.status(404).send("Product not found.");
+    // if (!updateProductImage) {
+    //   return res.status(404).send("Product not found.");
+    res.json(product)
+    console.log(product)
     }
 
-      res.json(updateProductImage);
-    } catch (error) {
-       res.status(500).json({ message: error.message })
-    }
-  } else {
+     // res.json(updateProductImage);
+  //   } catch (error) {
+  //      res.status(500).json({ message: error.message })
+  //   }
+  // } 
+    else {
       res.status(500).json({ message: error.message })
   }
 
