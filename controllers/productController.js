@@ -46,7 +46,7 @@ const updateProductImg = asyncHandler(async (req, res) => {
   }
 
   if (!Array.isArray(images) || images.length === 0) {
-    return res.status(400).send(req.body);
+    return res.status(400).send("images is not an array");
   }
   const product = await Product.findOne({id: id})
   if (product) {
