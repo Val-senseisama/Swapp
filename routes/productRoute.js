@@ -26,8 +26,8 @@ router.put(
 );
 router.get("/:id", getAProduct);
 router.get("/", getAllProducts);
-router.put("/:id", authMiddleware, updateProduct);
 router.put("/:id", updateProductImg);
+router.put("/:id", authMiddleware, updateProduct);
 router.delete("/:id", authMiddleware, isAdmin, deleteAProduct);
 
 module.exports = router;
