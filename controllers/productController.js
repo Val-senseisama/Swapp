@@ -51,7 +51,7 @@ const updateProductImg = asyncHandler(async (req, res) => {
         new: true,
       });
       
-    if (!updatedProduct) {
+    if (!updateProductImage) {
       return res.status(404).send("Product not found.");
     }
 
