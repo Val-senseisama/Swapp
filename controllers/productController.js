@@ -66,7 +66,6 @@ const updateProductImg = asyncHandler(async (req, res) => {
   // } 
     else {
       console.log("Can't find product")
-      res.status(500).json({ message: "Can't find product" })
   }
 
 });
