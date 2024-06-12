@@ -50,14 +50,15 @@ const updateProductImg = asyncHandler(async (req, res) => {
       const updateProductImage = await Product.findByIdAndUpdate( id , { $set: {images : images} }, {
         new: true,
       });
+      
+    if (!updatedProduct) {
+      return res.status(404).send("Product not found.");
+    }
 
       res.json(updateProductImage);
     } catch (error) {
-      throw new Error(error);
+       res.status(500).json({ message: error.message })
     }
-  } else {
-    res.statusCode(400).send("Back off");
-  }
 });
 
 const deleteAProduct = asyncHandler(async (req, res) => {
