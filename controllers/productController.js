@@ -63,6 +63,8 @@ const updateProductImg = asyncHandler(async (req, res) => {
 
      res.json(updateProductImage);
           console.log(updateProductImage.images)
+          
+          console.log(updateProductImage.images.images)
     } catch (error) {
        res.status(500).json({ message: error.message })
     }
