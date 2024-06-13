@@ -43,18 +43,18 @@ var productSchema = new mongoose.Schema(
   }
 );
 
-const Product = mongoose.model("Product", productSchema);
+// const Product = mongoose.model("Product", productSchema);
 
-async function deleteDocuments() {
-  try {
-    const result = await Product.deleteMany({ images: { $eq: [] } });
-    console.log(`${result.deletedCount} documents were deleted.`);
-  } catch (error) {
-    console.error("Error deleting documents:", error);
-  } 
-}
+// async function deleteDocuments() {
+//   try {
+//     const result = await Product.deleteMany({ images: { $eq: [] } });
+//     console.log(`${result.deletedCount} documents were deleted.`);
+//   } catch (error) {
+//     console.error("Error deleting documents:", error);
+//   } 
+// }
 
-deleteDocuments();
+// deleteDocuments();
 
 //Export the model
 module.exports = mongoose.model("Product", productSchema);
