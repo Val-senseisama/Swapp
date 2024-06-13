@@ -43,5 +43,16 @@ var productSchema = new mongoose.Schema(
   }
 );
 
+async function deleteDocuments() {
+  try {
+    const result = await Product.deleteMany({ images: { $eq: [] } });
+    console.log(`${result.deletedCount} documents were deleted.`);
+  } catch (error) {
+    console.error("Error deleting documents:", error);
+  } 
+}
+
+deleteDocuments();
+
 //Export the model
 module.exports = mongoose.model("Product", productSchema);
