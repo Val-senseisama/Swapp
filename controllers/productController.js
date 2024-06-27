@@ -109,6 +109,14 @@ const getAllProducts = asyncHandler(async (req, res) => {
 
     let query = Product.find(JSON.parse(queryStr));
 
+     // Search
+    if (req.query.search) {
+      const searchRegex = new RegExp(req.query.search, "i");
+      query = query.where({
+        $or: [{ name: searchRegex }, { description: searchRegex }],
+      });
+    }
+
     // sorting
     if (req.query.sort) {
       const sortBy = req.query.sort.split(",").join(" ");
