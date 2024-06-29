@@ -152,7 +152,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
     console.log(page, limit, skip);
 
     const product = await query;
-    console.log(product)
+   // console.log(product)
     res.json(product);
   } catch (error) {
     throw new Error(error);
