@@ -98,10 +98,9 @@ const getAProduct = asyncHandler(async (req, res) => {
 
 const getAllProducts = asyncHandler(async (req, res) => {
   try {
-    //filtering
-
+    // Filtering
     const queryObject = { ...req.query };
-    const excludeFields = ["page", "sort", "limit", "fields"];
+    const excludeFields = ["page", "sort", "limit", "fields", "search"];
     excludeFields.forEach((el) => delete queryObject[el]);
 
     let queryStr = JSON.stringify(queryObject);
@@ -109,21 +108,16 @@ const getAllProducts = asyncHandler(async (req, res) => {
 
     let query = Product.find(JSON.parse(queryStr));
 
-     // Search
+    // Search functionality
     if (req.query.search) {
       const searchRegex = new RegExp(req.query.search, "i");
       console.log(searchRegex);
-      try{
-         query = query.where({
+      query = query.where({
         $or: [{ name: searchRegex }, { description: searchRegex }],
       });
-      }
-      catch(error){
-        console.log(error);
-                       }
     }
 
-    // sorting
+    // Sorting
     if (req.query.sort) {
       const sortBy = req.query.sort.split(",").join(" ");
       query = query.sort(sortBy);
@@ -139,25 +133,25 @@ const getAllProducts = asyncHandler(async (req, res) => {
       query = query.select("-__v");
     }
 
-    //Pagination
-
-    const page = req.query.page;
-    const limit = req.query.limit;
+    // Pagination
+    const page = req.query.page * 1 || 1;
+    const limit = req.query.limit * 1 || 100;
     const skip = (page - 1) * limit;
     query = query.skip(skip).limit(limit);
+
     if (req.query.page) {
       const productCount = await Product.countDocuments();
       if (skip >= productCount) throw new Error("This page does not exist");
     }
-    console.log(page, limit, skip);
 
-    const product = await query;
-   // console.log(product)
-    res.json(product);
+    const products = await query;
+    res.json(products);
   } catch (error) {
-    throw new Error(error);
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
   }
 });
+
 
 // const addToWishlist = asyncHandler(async(req, res) => {
 //     const { _id } = req.user;
