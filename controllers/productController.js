@@ -37,9 +37,9 @@ const updateProduct = asyncHandler(async (req, res) => {
 const updateProductImg = asyncHandler(async (req, res) => {
   const {id} = req.params;
   const images = req.body;
-  console.log(id)
-  console.log(images);
-  console.log(req.body)
+  // console.log(id)
+  // console.log(images);
+  // console.log(req.body)
   //const owner = await Product.findById(id).owner;
   if (!id) {
     return res.status(400).send("Invalid product ID.");
@@ -58,13 +58,13 @@ const updateProductImg = asyncHandler(async (req, res) => {
     if (!updateProductImage) {
       return res.status(404).send("Product not found.");
     res.json(product)
-    console.log(product)
+    // console.log(product)
     }
 
      res.json(updateProductImage);
-          console.log(updateProductImage.images)
+         // console.log(updateProductImage.images)
           
-          console.log(updateProductImage.images.images)
+          //console.log(updateProductImage.images.images)
     } catch (error) {
        res.status(500).json({ message: error.message })
     }
