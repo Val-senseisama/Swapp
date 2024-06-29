@@ -112,9 +112,15 @@ const getAllProducts = asyncHandler(async (req, res) => {
      // Search
     if (req.query.search) {
       const searchRegex = new RegExp(req.query.search, "i");
-      query = query.where({
+      console.log(searchRegex);
+      try{
+         query = query.where({
         $or: [{ name: searchRegex }, { description: searchRegex }],
       });
+      }
+      catch(error){
+        console.log(error);
+                       }
     }
 
     // sorting
