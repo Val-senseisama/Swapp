@@ -109,8 +109,9 @@ const getAllProducts = asyncHandler(async (req, res) => {
     console.log("Query Object after filtering:", queryObject);
     console.log("Query String:", queryStr);
 
-    let query = Product.find(JSON.parse(queryStr));
-     
+    // Initialize the query with an empty object if no filtering criteria
+    let query = Product.find(JSON.parse(queryStr) || {});
+
     // Search
     if (req.query.search) {
       const searchRegex = new RegExp(req.query.search, "i");
