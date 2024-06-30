@@ -107,11 +107,11 @@ const getAllProducts = asyncHandler(async (req, res) => {
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
 
     let query = Product.find(JSON.parse(queryStr));
-
-    // Search functionality
+     
+     console.log(JSON.stringify(query.getQuery(), null, 2));
+    // Search
     if (req.query.search) {
       const searchRegex = new RegExp(req.query.search, "i");
-      console.log(searchRegex);
       query = query.where({
         $or: [{ name: searchRegex }, { description: searchRegex }],
       });
@@ -134,8 +134,8 @@ const getAllProducts = asyncHandler(async (req, res) => {
     }
 
     // Pagination
-    const page = req.query.page * 1 || 1;
-    const limit = req.query.limit * 1 || 100;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
     query = query.skip(skip).limit(limit);
 
@@ -143,12 +143,11 @@ const getAllProducts = asyncHandler(async (req, res) => {
       const productCount = await Product.countDocuments();
       if (skip >= productCount) throw new Error("This page does not exist");
     }
-
+     
     const products = await query;
     res.json(products);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: error.message });
   }
 });
 
