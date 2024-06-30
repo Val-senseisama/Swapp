@@ -105,17 +105,23 @@ const getAllProducts = asyncHandler(async (req, res) => {
 
     let queryStr = JSON.stringify(queryObject);
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+    
+    console.log("Query Object after filtering:", queryObject);
+    console.log("Query String:", queryStr);
 
     let query = Product.find(JSON.parse(queryStr));
      
-     console.log(JSON.stringify(query.getQuery(), null, 2));
     // Search
     if (req.query.search) {
       const searchRegex = new RegExp(req.query.search, "i");
+      console.log("Search Regex:", searchRegex);
       query = query.where({
         $or: [{ name: searchRegex }, { description: searchRegex }],
       });
     }
+
+    // Log query before sorting, limiting, and pagination
+    console.log("Query before sorting and pagination:", JSON.stringify(query.getQuery(), null, 2));
 
     // Sorting
     if (req.query.sort) {
@@ -143,6 +149,9 @@ const getAllProducts = asyncHandler(async (req, res) => {
       const productCount = await Product.countDocuments();
       if (skip >= productCount) throw new Error("This page does not exist");
     }
+
+    // Log final query
+    console.log("Final Query:", JSON.stringify(query.getQuery(), null, 2));
      
     const products = await query;
     res.json(products);
