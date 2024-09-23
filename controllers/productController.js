@@ -34,6 +34,14 @@ const updateProduct = asyncHandler(async (req, res) => {
   }
 });
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
+    [array[i], array[j]] = [array[j], array[i]]; // swap elements
+  }
+  return array;
+}
+
 const updateProductImg = asyncHandler(async (req, res) => {
   const {id} = req.params;
   const images = req.body;
@@ -155,7 +163,8 @@ const getAllProducts = asyncHandler(async (req, res) => {
     console.log("Final Query:", JSON.stringify(query.getQuery(), null, 2));
      
     const products = await query;
-    res.json(products);
+    const shuffledProducts = shuffleArray(products);
+    res.json(shuffledProducts);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
