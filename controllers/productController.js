@@ -163,8 +163,8 @@ const getAllProducts = asyncHandler(async (req, res) => {
     console.log("Final Query:", JSON.stringify(query.getQuery(), null, 2));
      
     const products = await query;
-    //const shuffledProducts = shuffleArray(products);
-    res.json(products);
+    const shuffledProducts = shuffleArray(products);
+    res.json(shuffledProducts);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
